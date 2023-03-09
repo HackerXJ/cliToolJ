@@ -1,11 +1,12 @@
 name: Deployment
 on:
   push:
-    branches: [ dev ]
+    branches: [ master ]
 jobs:
   Rollback:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       # 输出我们输入的version值
       - name: Echo Version
         env:
