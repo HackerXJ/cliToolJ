@@ -18,6 +18,7 @@ jobs:
           echo "Version: $VERSION"
          # 获取对应发布版本的制品
        - name: Download Artifact
+         uses: actions/download-artifact@v3
          with:
           version: "tags/${{ github.event.inputs.version }}"
           # 指定存放制品的压缩包
