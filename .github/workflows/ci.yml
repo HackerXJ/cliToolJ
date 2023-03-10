@@ -3,21 +3,14 @@ name: CI
 on:
   push:
     branches: [ master ]
-    tags:
-      - 'v*.*.*'
+#     tags:
+#       - 'v*.*.*'
 jobs:
   CI:
     runs-on: ubuntu-latest
     steps:
-       - uses: actions/checkout@v2
-       
-       - name: Echo Version
-         env:
-          VERSION: ${{ github.event.inputs.version }}
-         run: |
-          echo "Version: $VERSION"
-         # 获取对应发布版本的制品
-       - name: Download Artifact
-         uses: actions/download-artifact@v3
-         with:
-          name: output-log-file
+      - uses: actions/checkout@v3
+      - uses: taiki-e/create-gh-release-action@v1
+        env:
+          # (required) GitHub token for creating GitHub Releases.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
