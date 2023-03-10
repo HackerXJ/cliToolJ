@@ -20,8 +20,4 @@ jobs:
        - name: Download Artifact
          uses: actions/download-artifact@v3
          with:
-          version: "tags/${{ github.event.inputs.version }}"
-          # 指定存放制品的压缩包
-          file: "assets.zip"
-          # 这里需要CD Workflow中准备工作里的Github Personal Access Token
-          token: ${{ secrets.GITHUB_TOKEN }}
+          name: output-log-file
