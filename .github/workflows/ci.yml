@@ -11,14 +11,17 @@ jobs:
     steps:
        - uses: actions/checkout@v2
        
-       - name: Create release
-         id: create_release
-         uses: actions/create-release@v1
+       - name: Echo Version
          env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+          VERSION: ${{ github.event.inputs.version }}
+         run: |
+          echo "Version: $VERSION"
+         # 获取对应发布版本的制品
+       - name: Download Artifact
+         uses: dsaltares/fetch-gh-release-asset@master
          with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: TODO
-          draft: true
-          prerelease: false
+          version: "tags/${{ github.event.inputs.version }}"
+          # 指定存放制品的压缩包
+          file: "assets.zip"
+          # 这里需要CD Workflow中准备工作里的Github Personal Access Token
+          token: ${{ secrets.GITHUB_TOKEN }}
